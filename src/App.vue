@@ -1,26 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <input type="text" v-model="newTask" />
+  <button @click="addTask()">Add</button>
+  <div v-for="todo in todos" :key="todo">
+    <input type="checkbox" v-model="todo.done" />
+    <span :class="{ done: todo.done }"> {{ todo.task }}</span>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  data() {
+    return {
+      newTask: "",
+      todos: [],
+    };
+  },
+  methods: {
+    addTask: function () {
+      this.todos.push({ task: this.newTask, done: false });
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.done {
+  text-decoration: line-through;
 }
 </style>
